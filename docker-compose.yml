@@ -30,5 +30,20 @@ services:
       db:
         condition: service_healthy
 
+  frontend:
+    image: node:26-alpine
+    working_dir: /app
+    command: npm run dev -- --host
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      # named volume keeps node_modules across compose runs/restarts,
+      # so the host copy of frontend/ stays without it
+      - frontend_node_modules:/app/node_modules
+    depends_on:
+      - web
+
 volumes:
   db_data:
+  frontend_node_modules:
