@@ -11,4 +11,14 @@ export default defineConfig({
       '@': path.resolve(import.meta.dirname, './src'),
     },
   },
+  server: {
+    proxy: {
+      '/api': {
+        target: 'http://web:3000',
+        // keep the original Host header: Rails dev host authorization
+        // allows "localhost" but blocks the compose hostname "web"
+        changeOrigin: false,
+      },
+    },
+  },
 })
