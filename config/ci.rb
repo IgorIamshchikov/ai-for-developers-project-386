@@ -3,6 +3,10 @@
 CI.run do
   step "Setup", "bin/setup --skip-server"
 
+  # Tests run in the test environment with their own database
+  step "Test: prepare database", "RAILS_ENV=test bin/rails db:prepare"
+  step "Test: RSpec", "RAILS_ENV=test bin/rspec"
+
   step "Style: Ruby", "bin/rubocop"
 
   step "Security: Gem audit", "bin/bundler-audit"
