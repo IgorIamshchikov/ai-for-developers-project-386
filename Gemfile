@@ -39,6 +39,9 @@ group :development, :test do
   # RSpec testing framework for Rails [https://github.com/rspec/rspec-rails]
   gem "rspec-rails", "~> 8.0"
 
+  # RSpec-specific analysis cops for RuboCop [https://github.com/rubocop/rubocop-rspec]
+  gem "rubocop-rspec", require: false
+
   # Audits gems for known security defects (use config/bundler-audit.yml to ignore issues)
   gem "bundler-audit", require: false
 
