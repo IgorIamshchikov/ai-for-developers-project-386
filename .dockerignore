@@ -36,6 +36,9 @@
 # Ignore development files
 /.devcontainer
 
+# Ignore the frontend app; it has its own toolchain and is not part of the Rails image
+/frontend
+
 # Ignore Docker-related files
 /.dockerignore
 /Dockerfile*
