@@ -31,6 +31,7 @@
 
 - Запуск: `docker compose up -d` (db + web + frontend). Здоровье: `curl localhost:3000/up` → 200, `curl localhost:5173/` → 200.
 - Тесты: `docker compose run --rm -e RAILS_ENV=test web bash -c "bin/rails db:prepare && bin/rspec"`.
+- Тесты фронтенда: `docker compose run --rm --no-deps frontend npm run test` (Vitest + React Testing Library).
 - Локальный CI целиком: `docker compose run --rm web bin/ci` (setup → тесты → rubocop → bundler-audit → brakeman).
 - Линт фронтенда: `docker compose run --rm --no-deps frontend npm run lint`; сборка с проверкой типов: `docker compose run --rm --no-deps frontend npm run build`.
 - Другие npm-команды фронтенда: `docker compose run --rm --no-deps frontend <команда>` (например `npx shadcn@latest add button`; у `shadcn init` флаги `-b base -p nova --no-monorepo -y`, пресеты нижним регистром).
