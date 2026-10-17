@@ -42,3 +42,17 @@
 
 - `config/master.key` — никогда (репозиторий публичный; `/config/master.key` уже в `.gitignore`).
 - Служебные файлы Хекслета: `.github/workflows/hexlet-check.yml`, `.github/workflows/README.md`; репозиторий не переименовывать.
+
+## Agent skills
+
+### Issue tracker
+
+Задачи и спеки ведутся в GitHub Issues этого репозитория; все операции — через `gh` CLI. См. `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Словарь triage-меток — дефолтные пять ролей: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`. См. `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: `GLOSSARY.md` и `docs/adr/` в корне репозитория. См. `docs/agents/domain.md`.
