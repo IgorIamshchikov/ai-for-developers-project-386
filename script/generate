@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Regenerates the whole contract chain: TypeSpec -> OpenAPI -> client SDK.
+# Nothing in contract/openapi.yaml or frontend/src/api is hand-edited;
+# re-run this after any change under contract/.
+set -euo pipefail
+docker compose run --rm --no-deps contract npm run generate
