@@ -50,7 +50,7 @@ jobs:
       - name: Lint code for consistent style
         run: bin/rubocop -f github
 
-  lint_frontend:
+  frontend:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -71,6 +71,9 @@ jobs:
 
       - name: Lint code for consistent style
         run: npm run lint
+
+      - name: Run frontend tests
+        run: npm run test
 
   test:
     runs-on: ubuntu-latest
