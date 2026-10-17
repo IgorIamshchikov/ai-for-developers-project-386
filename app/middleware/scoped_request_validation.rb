@@ -6,7 +6,7 @@ class ScopedRequestValidation
   def initialize(app, path_prefix: "/api")
     @app = app
     @path_prefix = path_prefix
-    @validator = OpenapiFirst::Middlewares::RequestValidation.new(app)
+    @validator = OpenapiFirst::Middlewares::RequestValidation.new(app, error_response: :api_error)
   end
 
   def call(env)
