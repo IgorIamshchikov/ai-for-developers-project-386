@@ -1,0 +1,15 @@
+{
+  "name": "contract",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "generate": "tsp compile . && openapi-ts"
+  },
+  "devDependencies": {
+    "@hey-api/openapi-ts": "0.99.0",
+    "@typespec/compiler": "1.17.0",
+    "@typespec/http": "1.17.0",
+    "@typespec/openapi3": "1.17.0",
+    "typescript": "6.0.3"
+  }
+}

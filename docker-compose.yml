@@ -44,6 +44,16 @@ services:
     depends_on:
       - web
 
+  # One-shot generation: TypeSpec -> OpenAPI -> client SDK. Mounts the repo
+  # root (not just contract/) because the SDK output lands in frontend/src/api.
+  contract:
+    image: node:26-alpine
+    working_dir: /repo/contract
+    volumes:
+      - .:/repo
+      - contract_node_modules:/repo/contract/node_modules
+
 volumes:
   db_data:
   frontend_node_modules:
+  contract_node_modules:
