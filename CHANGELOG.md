@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.0](https://github.com/IgorIamshchikov/ai-for-developers-project-386/compare/v1.1.0...v1.2.0) (2026-10-17)
+
+
+### Features
+
+* TypeSpec-контракт и цепочка генерации OpenAPI/SDK ([88b36cc](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/88b36ccdb63ac7a264371a9555f6c5d2162dedf7))
+* TypeSpec-контракт и цепочка генерации OpenAPI/SDK ([c01c359](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/c01c3597731341c79e59e623698f7265325ceb4c))
+
 ## [1.1.0](https://github.com/IgorIamshchikov/ai-for-developers-project-386/compare/v1.0.0...v1.1.0) (2026-10-17)
 
 
