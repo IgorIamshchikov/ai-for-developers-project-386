@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.0](https://github.com/IgorIamshchikov/ai-for-developers-project-386/compare/v1.0.0...v1.1.0) (2026-10-17)
+
+
+### Features
+
+* главная страница с переходом на страницу записи ([2f33521](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/2f33521f84bdf9f3b124300e189ca3ccef519b12))
+* главная страница с переходом на страницу записи ([a337b1b](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/a337b1b503d1b486a21595410dfb44af4496bc72))
+
 ## 1.0.0 (2026-10-16)
 
 
