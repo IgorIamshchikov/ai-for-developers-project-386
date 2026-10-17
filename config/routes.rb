@@ -5,6 +5,15 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
+  # Mirrors contract/main.tsp 1:1 (see docs/research/22-generation-tooling.md):
+  # the contract is the source of truth, routes are hand-written thin stubs.
+  namespace :api do
+    resources :event_types, path: "event-types", only: %i[index create] do
+      get :slots, on: :member
+    end
+    resources :bookings, only: %i[index create]
+  end
+
   # Defines the root path route ("/")
   # root "posts#index"
 end
