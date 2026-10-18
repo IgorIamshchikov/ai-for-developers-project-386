@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.4.0](https://github.com/IgorIamshchikov/ai-for-developers-project-386/compare/v1.3.0...v1.4.0) (2026-10-18)
+
+
+### Features
+
+* список предстоящих встреч владельца ([b97c923](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/b97c9239816f8c0c35de8d24c79dc593499c2d0c))
+* список предстоящих встреч владельца ([b5dc301](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/b5dc30192f7658b7f7af7eb477e7f678d04715c0))
+* тип события и длительность в списке встреч владельца ([18b6fd4](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/18b6fd447af42b2513a67eed359ceaed9fe73bf7))
+
 ## [1.3.0](https://github.com/IgorIamshchikov/ai-for-developers-project-386/compare/v1.2.0...v1.3.0) (2026-10-18)
 
 
