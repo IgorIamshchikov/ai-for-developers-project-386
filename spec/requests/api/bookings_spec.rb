@@ -89,6 +89,32 @@ RSpec.describe "Api::Bookings", type: :request do
       end
     end
 
+    describe "когда слот уже занят другим типом события" do
+      let(:other_event_type) { EventType.create!(title: "Демо", description: "Показ продукта", duration_minutes: 30) }
+
+      before do
+        book
+        post "/api/bookings", as: :json, params: {
+          eventTypeId: other_event_type.id,
+          startsAt: "2026-01-01T10:30:00Z",
+          visitorName: "Борис",
+          visitorEmail: "boris@example.com"
+        }
+      end
+
+      it "возвращает 409" do
+        expect(response).to have_http_status(:conflict)
+      end
+
+      it "соответствует контракту" do
+        assert_response_conforms
+      end
+
+      it "возвращает код ошибки slot_taken" do
+        expect(response.parsed_body["error"]["code"]).to eq("slot_taken")
+      end
+    end
+
     describe "когда visitorName пустой" do
       before { book(visitorName: "") }
 
