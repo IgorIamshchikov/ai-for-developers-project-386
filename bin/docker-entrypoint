@@ -1,7 +1,9 @@
 #!/bin/bash -e
 
-# If running the rails server then create or migrate existing database
-if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
+# If running the rails server with a database configured, create or migrate it.
+# Без $DATABASE_URL (например, в автопроверке Хекслета, где задан только $PORT) пропускаем —
+# иначе контейнер не стартует без Postgres.
+if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ] && [ -n "$DATABASE_URL" ]; then
   ./bin/rails db:prepare
 fi
 
