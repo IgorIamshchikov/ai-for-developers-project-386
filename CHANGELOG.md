@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.3.0](https://github.com/IgorIamshchikov/ai-for-developers-project-386/compare/v1.2.0...v1.3.0) (2026-10-18)
+
+
+### Features
+
+* бронирование звонка Посетителем — слоты и создание ([0fbd6b5](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/0fbd6b595c704c6ea2a8cc6c6d6b86abb4844924))
+* бронирование звонка Посетителем — слоты и создание ([29fda8e](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/29fda8e26521f9dec01b8d4213b5d77ba2ec38a1)), closes [#28](https://github.com/IgorIamshchikov/ai-for-developers-project-386/issues/28)
+* типы событий — создание Владельцем и список для Посетителя ([6d95dee](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/6d95deef656c9fd34f29c34376aba35bb0ab5c37))
+
 ## [1.2.0](https://github.com/IgorIamshchikov/ai-for-developers-project-386/compare/v1.1.0...v1.2.0) (2026-10-17)
 
 
