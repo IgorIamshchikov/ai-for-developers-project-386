@@ -24,7 +24,7 @@ function OwnerBookings() {
   }, [])
 
   return (
-    <div className="flex min-h-svh flex-col items-center gap-6 p-8">
+    <div className="flex flex-1 flex-col items-center gap-6 p-8">
       <h1 className="text-2xl font-bold">Предстоящие встречи</h1>
       <ul className="flex w-full max-w-md flex-col gap-4">
         {bookings.map((booking) => {

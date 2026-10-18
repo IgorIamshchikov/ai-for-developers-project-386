@@ -19,22 +19,22 @@ const eventType = {
 }
 
 const slot = { startsAt: '2026-01-01T10:30:00Z', endsAt: '2026-01-01T10:45:00Z' }
-const dayLabel = new Date(slot.startsAt).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' })
 const timeLabel = new Date(slot.startsAt).toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
 
 async function selectSlot() {
   render(<Booking />)
 
   fireEvent.click(await screen.findByText('Знакомство'))
-  fireEvent.click(await screen.findByText(dayLabel))
+  // единственный доступный день выбирается автоматически — время сразу доступно
   fireEvent.click(await screen.findByText(timeLabel))
+  fireEvent.click(screen.getByRole('button', { name: 'Продолжить' }))
 
   fireEvent.change(await screen.findByLabelText('Имя'), { target: { value: 'Алекс' } })
   fireEvent.change(screen.getByLabelText('Email'), { target: { value: 'alex@example.com' } })
 }
 
 describe('Гостевой флоу бронирования', () => {
-  it('проходит тип → день → слот → форму и показывает подтверждение', async () => {
+  it('проходит тип → автовыбор дня → слот → форму и показывает подтверждение', async () => {
     vi.mocked(calendarApiListEventTypes).mockResolvedValue({ data: [eventType], error: undefined })
     vi.mocked(calendarApiListSlots).mockResolvedValue({ data: [slot], error: undefined })
     vi.mocked(calendarApiCreateBooking).mockResolvedValue({
@@ -62,7 +62,7 @@ describe('Гостевой флоу бронирования', () => {
     })
   })
 
-  it('при slot_taken возвращает к выбору слота с сообщением', async () => {
+  it('при slot_taken возвращает к выбору даты и времени с сообщением', async () => {
     vi.mocked(calendarApiListEventTypes).mockResolvedValue({ data: [eventType], error: undefined })
     vi.mocked(calendarApiListSlots).mockResolvedValue({ data: [slot], error: undefined })
     vi.mocked(calendarApiCreateBooking).mockResolvedValue({
@@ -74,7 +74,38 @@ describe('Гостевой флоу бронирования', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Записаться' }))
 
     expect(await screen.findByText('Слот уже занят, выберите другое время')).toBeDefined()
-    expect(screen.getByText('Выберите время')).toBeDefined()
+    expect(screen.getByText('Выберите дату и время')).toBeDefined()
     expect(calendarApiListSlots).toHaveBeenCalledTimes(2)
+  })
+
+  it('кнопка "Назад" со схемы даты/времени возвращает к списку типов событий', async () => {
+    vi.mocked(calendarApiListEventTypes).mockResolvedValue({ data: [eventType], error: undefined })
+    vi.mocked(calendarApiListSlots).mockResolvedValue({ data: [slot], error: undefined })
+
+    render(<Booking />)
+
+    fireEvent.click(await screen.findByText('Знакомство'))
+    await screen.findByText(timeLabel)
+
+    fireEvent.click(screen.getByRole('button', { name: '← Назад' }))
+
+    expect(await screen.findByText('Выберите тип события')).toBeDefined()
+  })
+
+  it('кнопка "Назад" с подтверждения записи возвращает к схеме с сохранённым временем', async () => {
+    vi.mocked(calendarApiListEventTypes).mockResolvedValue({ data: [eventType], error: undefined })
+    vi.mocked(calendarApiListSlots).mockResolvedValue({ data: [slot], error: undefined })
+
+    render(<Booking />)
+
+    fireEvent.click(await screen.findByText('Знакомство'))
+    fireEvent.click(await screen.findByText(timeLabel))
+    fireEvent.click(screen.getByRole('button', { name: 'Продолжить' }))
+
+    await screen.findByText('Подтверждение записи')
+    fireEvent.click(screen.getByRole('button', { name: '← Назад' }))
+
+    expect(await screen.findByText('Выберите дату и время')).toBeDefined()
+    expect(screen.getByRole('button', { name: timeLabel }).getAttribute('aria-pressed')).toBe('true')
   })
 })

@@ -27,7 +27,7 @@ function OwnerEventTypesNew() {
   }
 
   return (
-    <div className="flex min-h-svh flex-col items-center gap-6 p-8">
+    <div className="flex flex-1 flex-col items-center gap-6 p-8">
       <h1 className="text-2xl font-bold">Новый тип события</h1>
       <form onSubmit={handleSubmit} className="flex w-full max-w-md flex-col gap-4 text-left">
         <label className="flex flex-col gap-1">
