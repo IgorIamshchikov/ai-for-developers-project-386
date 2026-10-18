@@ -16,4 +16,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+  # SPA fallback: any non-API path that doesn't match a static asset in
+  # public/ (JS/CSS, etc.) is handed to the frontend's client-side router.
+  get "*path", to: "static#fallback", constraints: ->(req) { !req.path.start_with?("/api/") }
 end

@@ -36,8 +36,9 @@
 # Ignore development files
 /.devcontainer
 
-# Ignore the frontend app; it has its own toolchain and is not part of the Rails image
-/frontend
+# The frontend is built into the final image (see Dockerfile's frontend-build
+# stage), but its local deps aren't needed in the build context.
+/frontend/node_modules
 
 # Ignore Docker-related files
 /.dockerignore
