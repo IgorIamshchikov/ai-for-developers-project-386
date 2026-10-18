@@ -5,4 +5,11 @@ if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
   ./bin/rails db:prepare
 fi
 
+# Hosting platforms (Render, Railway, ...) inject $PORT and expect the
+# container to listen on it. Thruster listens on $HTTP_PORT (default 80),
+# not $PORT (which it instead sets for the Puma child process), so map it.
+if [ -n "$PORT" ]; then
+  export HTTP_PORT="$PORT"
+fi
+
 exec "${@}"

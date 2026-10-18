@@ -51,10 +51,30 @@ COPY . .
 # -j 1 disable parallel compilation to avoid a QEMU bug: https://github.com/rails/bootsnap/issues/495
 RUN bundle exec bootsnap precompile -j 1 app/ lib/
 
+# Development image with development and test gems, used by docker-compose.yml
+FROM build AS dev
 
+# Reset production bundling settings to include development and test gems
+ENV RAILS_ENV="development" \
+    BUNDLE_WITHOUT=""
 
+# Install all gem groups, including development and test
+RUN bundle install
 
-# Final stage for app image
+# Build the frontend SPA; its static output is served by Rails from public/
+FROM node:26-alpine AS frontend-build
+
+WORKDIR /frontend
+
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm ci
+
+COPY frontend/ ./
+RUN npm run build
+
+# Final stage for app image. Kept last: `docker build .` with no --target
+# builds the last stage, and docker-compose.yml pins `target: dev` for dev,
+# so this must stay last for a plain build to produce the production image.
 FROM base
 
 # Run and own only the runtime files as a non-root user for security
@@ -65,6 +85,7 @@ USER 1000:1000
 # Copy built artifacts: gems, application
 COPY --chown=rails:rails --from=build "${BUNDLE_PATH}" "${BUNDLE_PATH}"
 COPY --chown=rails:rails --from=build /rails /rails
+COPY --chown=rails:rails --from=frontend-build /frontend/dist /rails/public
 
 # Entrypoint prepares the database.
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
@@ -72,13 +93,3 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 # Start server via Thruster by default, this can be overwritten at runtime
 EXPOSE 80
 CMD ["./bin/thrust", "./bin/rails", "server"]
-
-# Development image with development and test gems, used by docker-compose.yml
-FROM build AS dev
-
-# Reset production bundling settings to include development and test gems
-ENV RAILS_ENV="development" \
-    BUNDLE_WITHOUT=""
-
-# Install all gem groups, including development and test
-RUN bundle install

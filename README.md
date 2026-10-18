@@ -25,6 +25,8 @@ cd ai-for-developers-project-386
 
 <!-- Добавьте примеры запуска и запись asciinema — именно это смотрит работодатель -->
 
+Приложение развёрнуто на Railway: https://web-production-9a2d76.up.railway.app
+
 ---
 
 <details>
