@@ -35,10 +35,11 @@ rescue ActiveRecord::PendingMigrationError => e
   abort e.to_s.strip
 end
 # Contract conformance (`assert_api_conform`), not coverage enforcement: not
-# every operation in contract/main.tsp has a request spec yet (slots/bookings
-# land in later tickets), so the built-in coverage gate would fail the suite.
+# every operation in contract/main.tsp has a request spec yet, so the
+# built-in coverage gate would fail the suite.
 OpenapiFirst::Test.setup { |test| test.report_coverage = false }
 require_relative 'support/api_response_conformance'
+require 'active_support/testing/time_helpers'
 
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
@@ -50,6 +51,7 @@ RSpec.configure do |config|
   # pair against contract/openapi.yaml (OpenapiFirst::Test::Methods).
   config.include OpenapiFirst::Test::Methods, type: :request
   config.include ApiResponseConformance, type: :request
+  config.include ActiveSupport::Testing::TimeHelpers
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false

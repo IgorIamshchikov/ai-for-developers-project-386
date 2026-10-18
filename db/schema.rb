@@ -10,9 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_17_194939) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_18_075626) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "bookings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "event_type_id", null: false
+    t.datetime "starts_at", null: false
+    t.datetime "ends_at", null: false
+    t.string "visitor_name", null: false
+    t.string "visitor_email", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["event_type_id"], name: "index_bookings_on_event_type_id"
+    t.exclusion_constraint "tsrange(starts_at, ends_at) WITH &&", using: :gist, name: "bookings_no_overlapping_slots"
+  end
 
   create_table "event_types", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "title", null: false
@@ -21,4 +33,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_17_194939) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "bookings", "event_types"
 end
