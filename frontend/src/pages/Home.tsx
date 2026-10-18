@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom'
 
 import { buttonVariants } from '@/components/ui/button'
+import { ROUTES } from '@/lib/routes'
 
 function Home() {
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center gap-6 p-8 text-center">
+    <div className="flex flex-1 flex-col items-center justify-center gap-6 p-8 text-center">
       <div className="flex flex-col gap-4">
         <h1 className="text-4xl font-bold">Календарь звонков</h1>
         <p className="text-lg text-muted-foreground">
@@ -12,7 +13,7 @@ function Home() {
           регистрации.
         </p>
       </div>
-      <Link to="/booking" className={buttonVariants()}>
+      <Link to={ROUTES.booking} className={buttonVariants()}>
         Записаться на звонок
       </Link>
     </div>
