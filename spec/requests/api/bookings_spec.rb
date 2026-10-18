@@ -140,4 +140,25 @@ RSpec.describe "Api::Bookings", type: :request do
       expect(response.parsed_body.pluck("visitorName")).to eq(%w[А Б])
     end
   end
+
+  describe "GET /api/bookings когда бронирование уже началось" do
+    before do
+      event_type.bookings.create!(starts_at: Time.utc(2026, 1, 1, 10, 30), visitor_name: "А", visitor_email: "a@example.com")
+
+      travel_to(Time.utc(2026, 1, 1, 11, 0))
+      get "/api/bookings"
+    end
+
+    it "возвращает 200" do
+      expect(response).to have_http_status(:ok)
+    end
+
+    it "соответствует контракту" do
+      assert_api_conform(status: 200)
+    end
+
+    it "не включает прошедшее бронирование" do
+      expect(response.parsed_body).to be_empty
+    end
+  end
 end
