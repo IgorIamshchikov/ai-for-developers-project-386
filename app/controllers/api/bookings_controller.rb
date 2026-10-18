@@ -2,7 +2,7 @@
 module Api
   class BookingsController < ApplicationController
     def index
-      render json: Booking.order(:starts_at).map { |booking| booking_json(booking) }
+      render json: Booking.where("starts_at >= ?", Time.current).order(:starts_at).map { |booking| booking_json(booking) }
     end
 
     def create
