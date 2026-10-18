@@ -9,6 +9,12 @@ Rails.application.configure do
   # Eager load code on boot for better performance and memory savings (ignored by Rake tasks).
   config.eager_load = true
 
+  # Автопроверка Хекслета запускает контейнер без RAILS_MASTER_KEY/SECRET_KEY_BASE (только PORT),
+  # поэтому при их отсутствии генерируем секрет на лету, а не падаем на старте.
+  config.secret_key_base = ENV.fetch("SECRET_KEY_BASE") {
+    Rails.application.credentials.secret_key_base || SecureRandom.hex(64)
+  }
+
   # Full error reports are disabled.
   config.consider_all_requests_local = false
 
