@@ -1,5 +1,42 @@
 # Changelog
 
+## [1.5.0](https://github.com/IgorIamshchikov/ai-for-developers-project-386/compare/v1.4.0...v1.5.0) (2026-10-20)
+
+
+### Features
+
+* TypeSpec-контракт и цепочка генерации OpenAPI/SDK ([173883d](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/173883d8760c8534950cedca4c32820978eef644))
+* TypeSpec-контракт и цепочка генерации OpenAPI/SDK ([#24](https://github.com/IgorIamshchikov/ai-for-developers-project-386/issues/24)) ([902e570](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/902e570db606088b9a214991872a5970c4ee5c5b))
+* бронирование звонка Посетителем — слоты и создание ([2daa0f0](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/2daa0f0e0ed71a29b50a1d1f74de62bd089ffb14))
+* бронирование звонка Посетителем — слоты и создание ([#28](https://github.com/IgorIamshchikov/ai-for-developers-project-386/issues/28)) ([9bea648](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/9bea6481efd12fd75f2951ae3ac73cb444302e76))
+* генерировать маршруты и параметры бекенда из OpenAPI ([#45](https://github.com/IgorIamshchikov/ai-for-developers-project-386/issues/45)) ([85537b6](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/85537b61211952513d7cda09baa24fdffa7de279))
+* генерировать маршруты и параметры бекенда из OpenAPI ([#45](https://github.com/IgorIamshchikov/ai-for-developers-project-386/issues/45)) ([f681e09](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/f681e09b31fa6e74112d79be4bee1f1f96b6efd3))
+* главная страница с переходом на страницу записи ([51223c7](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/51223c7183734e02524f96a0ba54fb9a5062cc0a))
+* главная страница с переходом на страницу записи ([2f628a6](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/2f628a61d041a7f158275692a9fe60e2bd6aabda))
+* добавлен каркас Rails API-приложения ([ecaa1fe](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/ecaa1feaad204d242bd84d2b28ad56b8be23e30b))
+* добавлен каркас бэкенда ([c86fc6c](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/c86fc6c75d7a9fed744d5a8dd327fbf7cee61120))
+* добавлен каркас фронтенда на Vite ([a66af22](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/a66af22d2a293e272ea89f3cc2a99b8bb2db68c5))
+* добавлен прокси /api на бекенд ([f821e2c](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/f821e2ce75c997fcc16c993a89d2f208ec15ffd7))
+* добавлен фронтенд ([71d943e](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/71d943e827db5894191d21784e8f97dc37e7a498))
+* подключён shadcn/ui ([addb328](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/addb32883a74bf31bf4129084e5073132a937687))
+* сборка единого Docker-образа и деплой на Railway ([a9b608c](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/a9b608c8569be4d4caa8e066d1c46e572b754035))
+* сборка единого Docker-образа и деплой на Railway ([8fd2013](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/8fd2013243e7f959e15c75395620f6f92520b41b))
+* список предстоящих встреч владельца ([db23474](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/db2347457b26510cea72ae3cca8aebfc4aa9a357))
+* список предстоящих встреч владельца ([#29](https://github.com/IgorIamshchikov/ai-for-developers-project-386/issues/29)) ([c8b0cc9](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/c8b0cc93f275836f75e35e456471d47dd3fa06d8))
+* статичный хедер и новый flow бронирования с календарём ([3fe613d](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/3fe613d62c4cc996037aa135c7fc82e485b0fded))
+* тип события и длительность в списке встреч владельца ([#29](https://github.com/IgorIamshchikov/ai-for-developers-project-386/issues/29)) ([dde9db9](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/dde9db9570e4e38d9498cbe7a3f8f616f152a41e))
+* типы событий — создание Владельцем и список для Посетителя ([280683d](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/280683dd550ffe81b1fcdef30409407e65c7d53a))
+* типы событий — создание Владельцем и список для Посетителя ([#27](https://github.com/IgorIamshchikov/ai-for-developers-project-386/issues/27)) ([2d5f3cf](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/2d5f3cf45380419a3801bb5fc189e27e897c8a76))
+* фронтенд запущен в docker compose ([2d0d3a7](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/2d0d3a7b51064c0e70cdc21b33653e392158795a))
+
+
+### Bug Fixes
+
+* восстановить автоматический релиз и зафиксировать правило про тикеты ([a5efcdc](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/a5efcdc88c1e5a429e3083c4f74692bdc42d0667))
+* продакшен-контейнер стартует без БД и мастер-ключа ([0bab0ca](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/0bab0caa0e4d0077b90f3bd87d9d5df3dcd0edcf))
+* продакшен-контейнер стартует без БД и мастер-ключа ([64b5f87](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/64b5f87c67488935e52b4e4f68f54e90ce8dc5d4))
+* убрать задвоенную запись релиза 1.0.0 из CHANGELOG ([c4873ed](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/c4873ed0b32472521c54935a4594ede02c9a659f))
+
 ## [1.4.0](https://github.com/IgorIamshchikov/ai-for-developers-project-386/compare/v1.3.0...v1.4.0) (2026-10-18)
 
 
