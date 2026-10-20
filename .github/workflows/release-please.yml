@@ -17,4 +17,6 @@ jobs:
         with:
           # develop is the default branch of this repository
           target-branch: develop
-          release-type: simple
+          # release-type и версия берутся из release-please-config.json и
+          # .release-please-manifest.json — при заданном release-type
+          # action их не читает и работает в bootstrap-режиме по тегам
