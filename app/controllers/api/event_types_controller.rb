@@ -1,4 +1,4 @@
-# Wired to the contract (contract/main.tsp, config/routes.rb).
+# Wired to the contract (contract/main.tsp, config/routes/api.rb).
 module Api
   class EventTypesController < ApplicationController
     def index
@@ -30,8 +30,8 @@ module Api
     end
 
     def event_type_params
-      params.permit(:title, :description, :durationMinutes).to_h do |key, value|
-        key == "durationMinutes" ? [ :duration_minutes, value ] : [ key, value ]
+      params.permit(*ApiParams::EventTypeCreate::PERMITTED).to_h.transform_keys do |key|
+        ApiParams::EventTypeCreate::KEY_MAP.fetch(key, key)
       end
     end
 

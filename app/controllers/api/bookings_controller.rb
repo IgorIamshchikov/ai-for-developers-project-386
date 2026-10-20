@@ -1,4 +1,4 @@
-# Wired to the contract (contract/main.tsp, config/routes.rb).
+# Wired to the contract (contract/main.tsp, config/routes/api.rb).
 module Api
   class BookingsController < ApplicationController
     def index
@@ -27,18 +27,10 @@ module Api
     end
 
     def booking_params
-      params.permit(:eventTypeId, :startsAt, :visitorName, :visitorEmail).to_h.transform_keys do |key|
-        PARAM_KEYS.fetch(key, key)
+      params.permit(*ApiParams::BookingCreate::PERMITTED).to_h.transform_keys do |key|
+        ApiParams::BookingCreate::KEY_MAP.fetch(key, key)
       end
     end
-
-    PARAM_KEYS = {
-      "eventTypeId" => :event_type_id,
-      "startsAt" => :starts_at,
-      "visitorName" => :visitor_name,
-      "visitorEmail" => :visitor_email
-    }.freeze
-    private_constant :PARAM_KEYS
 
     def booking_json(booking)
       {
