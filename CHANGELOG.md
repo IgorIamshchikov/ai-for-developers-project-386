@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.5.1](https://github.com/IgorIamshchikov/ai-for-developers-project-386/compare/v1.5.0...v1.5.1) (2026-10-21)
+
+
+### Bug Fixes
+
+* гарантировать npm ci в e2e независимо от переопределения команды ([4644295](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/4644295493d7ea4dbacb753e4352611c215f2e26))
+* установить зависимости фронтенда перед dev-сервером в compose ([0c086b7](https://github.com/IgorIamshchikov/ai-for-developers-project-386/commit/0c086b705063dd930150a2915a02a3dcc36dfa41))
+
 ## [1.5.0](https://github.com/IgorIamshchikov/ai-for-developers-project-386/compare/v1.4.0...v1.5.0) (2026-10-20)
 
 
