@@ -69,7 +69,10 @@ services:
     volumes:
       - ./frontend:/app
       - e2e_node_modules:/app/node_modules
-    command: bash -c "npm ci && npm run test:e2e"
+    # entrypoint (не command) — npm ci всегда выполняется первым, даже если
+    # `docker compose run e2e <другая команда>` переопределит command.
+    entrypoint: ["bash", "-c", "npm ci && exec \"$@\"", "--"]
+    command: ["npm", "run", "test:e2e"]
     depends_on:
       web:
         condition: service_healthy
