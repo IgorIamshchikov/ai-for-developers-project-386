@@ -23,6 +23,7 @@
 - Фронтенд — отдельное приложение в `frontend/`: Vite + React + TypeScript + shadcn/ui, порт 5173, алиас `@/*` → `frontend/src`. Dev-сервер проксирует `/api` на бекенд (`frontend/vite.config.ts`): `target: http://web:3000`, `changeOrigin: false` — с `true` Rails HostAuthorization блокирует Host `web`.
 - Всё запускается в Docker (`docker-compose.yml`): `db` (postgres:18-alpine), `web` (Rails, стейдж `dev` образа), `frontend` (node:26-alpine). Локального Ruby и node_modules на хосте нет; npm-команды — только в контейнере (именованный volume `frontend_node_modules`).
 - Тесты бекенда — RSpec (`spec/`); дымовой тест — `GET /up` → 200; каждая спека начинается с `require "rails_helper"`.
+- Сквозные тесты — Playwright (`frontend/e2e/`), настоящий браузер против настоящего бекенда (SDK не замокан), в отличие от компонентных тестов на Vitest.
 - Линтеры: бекенд — RuboCop (omakase + rubocop-rspec), Brakeman, bundler-audit — всё разом через `bin/ci` (список шагов в `config/ci.rb`); фронтенд — Oxlint (`.oxlintrc.json`), проверка типов — `tsc -b` внутри `npm run build`.
 - CI: `.github/workflows/ci.yml` — тесты и линтеры на каждый пуш и PR; `release-please.yml` — релизы по semver из истории коммитов.
 - Контракт API — TypeSpec (`contract/main.tsp`) → OpenAPI (`contract/openapi.yaml`) → клиентский SDK фронтенда (`frontend/src/api`) и Rails-артефакты (`config/routes/api.rb`, `app/generated/api_params.rb`, генератор — `contract/generate-rails.mjs`). Вся цепочка — одной командой `./script/generate`; эти файлы не правятся руками, только перегенерируются.
@@ -35,6 +36,7 @@
 - Регенерация контракта после правки `contract/main.tsp`: `./script/generate` (TypeSpec → OpenAPI → SDK фронтенда → маршруты и allow-list параметров бекенда).
 - Тесты: `docker compose run --rm -e RAILS_ENV=test web bash -c "bin/rails db:prepare && bin/rspec"`.
 - Тесты фронтенда: `docker compose run --rm --no-deps frontend npm run test` (Vitest + React Testing Library).
+- Сквозные тесты: `docker compose up -d` (нужны поднятые db + web + frontend), затем `docker compose run --rm e2e npm run test:e2e` (сервис `e2e` в профиле `e2e`, не стартует с обычным `up -d`; образ `mcr.microsoft.com/playwright`, базовый URL — `http://frontend:5173` по имени compose-сервиса).
 - Локальный CI целиком: `docker compose run --rm web bin/ci` (setup → тесты → rubocop → bundler-audit → brakeman).
 - Линт фронтенда: `docker compose run --rm --no-deps frontend npm run lint`; сборка с проверкой типов: `docker compose run --rm --no-deps frontend npm run build`.
 - Другие npm-команды фронтенда: `docker compose run --rm --no-deps frontend <команда>` (например `npx shadcn@latest add button`; у `shadcn init` флаги `-b base -p nova --no-monorepo -y`, пресеты нижним регистром).

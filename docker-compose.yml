@@ -29,11 +29,18 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:3000/up"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
 
   frontend:
     image: node:26-alpine
     working_dir: /app
-    command: npm run dev -- --host
+    # npm ci — на свежем frontend_node_modules (например, в CI) зависимости
+    # иначе не установлены; на уже заполненном томе это быстрый no-op.
+    command: sh -c "npm ci && npm run dev -- --host"
     ports:
       - "5173:5173"
     volumes:
@@ -43,6 +50,34 @@ services:
       - frontend_node_modules:/app/node_modules
     depends_on:
       - web
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:5173/ > /dev/null"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  # Сквозной тест в настоящем браузере против frontend+web+db (issue про
+  # отзыв наставника: компонентные тесты мокают SDK и не проверяют связку
+  # UI+сервер). Не стартует с `docker compose up -d` (профиль e2e) — запуск:
+  # `docker compose up -d && docker compose run --rm e2e npm run test:e2e`.
+  e2e:
+    image: mcr.microsoft.com/playwright:v1.64.1-noble
+    profiles: ["e2e"]
+    working_dir: /app
+    environment:
+      BASE_URL: http://frontend:5173
+    volumes:
+      - ./frontend:/app
+      - e2e_node_modules:/app/node_modules
+    # entrypoint (не command) — npm ci всегда выполняется первым, даже если
+    # `docker compose run e2e <другая команда>` переопределит command.
+    entrypoint: ["bash", "-c", "npm ci && exec \"$@\"", "--"]
+    command: ["npm", "run", "test:e2e"]
+    depends_on:
+      web:
+        condition: service_healthy
+      frontend:
+        condition: service_healthy
 
   # One-shot generation: TypeSpec -> OpenAPI -> client SDK. Mounts the repo
   # root (not just contract/) because the SDK output lands in frontend/src/api.
@@ -57,3 +92,4 @@ volumes:
   db_data:
   frontend_node_modules:
   contract_node_modules:
+  e2e_node_modules:
