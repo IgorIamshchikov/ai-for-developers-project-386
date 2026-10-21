@@ -38,7 +38,9 @@ services:
   frontend:
     image: node:26-alpine
     working_dir: /app
-    command: npm run dev -- --host
+    # npm ci — на свежем frontend_node_modules (например, в CI) зависимости
+    # иначе не установлены; на уже заполненном томе это быстрый no-op.
+    command: sh -c "npm ci && npm run dev -- --host"
     ports:
       - "5173:5173"
     volumes:
