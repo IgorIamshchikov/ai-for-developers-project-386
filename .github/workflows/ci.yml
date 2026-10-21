@@ -109,3 +109,21 @@ jobs:
       - name: Run tests
         run: bin/rspec
 
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      # `docker compose run` стартует зависимости (db, web, frontend) и ждёт
+      # их healthcheck — как и локально (см. AGENTS.md).
+      - name: Run end-to-end tests in a real browser
+        run: docker compose run --rm e2e npm run test:e2e
+
+      - name: Collect service logs on failure
+        if: failure()
+        run: docker compose logs db web frontend
+
+      - name: Tear down
+        if: always()
+        run: docker compose down -v
