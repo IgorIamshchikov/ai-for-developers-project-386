@@ -41,7 +41,7 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 
   # RSpec testing framework for Rails [https://github.com/rspec/rspec-rails]
-  gem "rspec-rails", "~> 8.0"
+  gem "rspec-rails", "~> 8.1"
 
   # RSpec-specific analysis cops for RuboCop [https://github.com/rubocop/rubocop-rspec]
   gem "rubocop-rspec", require: false
